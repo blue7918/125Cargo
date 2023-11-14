@@ -1,0 +1,160 @@
+.basic-wrapper {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 140px 130px;
+  background-color: #fff;
+}
+.upper-wrapper {
+  max-width: 1180px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 70px;
+}
+.title-text {
+  color: #141414;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 23px */
+  letter-spacing: -0.2px;
+  margin-bottom: 15px;
+}
+@media screen and (max-width: 500px) {
+  .title-text {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+}
+/* 주소관련 */
+.location-box {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.exchange-icon {
+  width: 40.231px;
+  height: 36.069px;
+  margin-top: 35px;
+}
+.location-memo {
+  width: 380px;
+  height: 140px;
+  border: 1px solid #c4c4c4;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  resize: none;
+  outline: none;
+}
+
+/* input박스 관련 */
+.input-row-wrapper {
+  display: flex;
+  gap: 6px;
+}
+.input-col-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input-row-wrapper > input {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 14px */
+  letter-spacing: -0.2px;
+  border: 1px solid #c4c4c4;
+  background: rgba(255, 255, 255, 0.05);
+  height: 40px;
+  padding: 0 15px;
+  outline: none;
+}
+.input-row-wrapper > input::placeholder {
+  color: #848484;
+}
+.short-input {
+  width: 172px;
+}
+.long-input {
+  width: 350px;
+}
+
+/* 배송타입 관련 */
+.type-button-wrapper {
+  display: flex;
+  gap: 6px;
+  min-width: 550px;
+}
+.type-button-wrapper input[type='checkbox'] {
+  display: none;
+}
+.type-button-wrapper input[type='checkbox'] + label {
+  width: 172px;
+  height: 50px;
+  border: 1px solid #c4c4c4;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 18px */
+  letter-spacing: -0.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .type-button-wrapper input[type='checkbox'] + label {
+    width: 110px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+.type-button-wrapper input[type='checkbox']:checked + label {
+  border: 1px solid #326ce7;
+  background: #326ce7;
+  cursor: pointer;
+  color: #fff;
+}
+.type-button-wrapper input[type='checkbox']:disabled + label {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #a1a1a1;
+}
+
+/* 차량종류 및 배송품 관련 */
+.lower-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.car-content-box {
+  width: 100%;
+  height: 100%;
+  background: #f0f5ff;
+  padding-top: 40px;
+  padding-left: 18px;
+  flex-direction: column;
+  gap: 25px;
+  display: none;
+}
+#type-truck:checked ~ #truck-content-box,
+#type-motorcycle:checked ~ #motorcycle-content-box,
+#type-damas:checked ~ #damas-content-box,
+#type-rabo:checked ~ #rabo-content-box {
+  display: flex !important;
+}
+
+#truck-content-box {
+  display: flex !important;
+}
+
+.car-content-title {
+  margin-bottom: 15px;
+  color: #141414;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 100%; /* 19px */
+  letter-spacing: -0.2px;
+}

@@ -1,0 +1,113 @@
+{
+  "LoadTypeData": [
+    {
+      "id": 0,
+      "content": "고객님이 직접 상차"
+    },
+    {
+      "id": 1,
+      "content": "지게차를 통한 상차"
+    },
+    {
+      "id": 2,
+      "content": "고객님과 기사님이 함께 \n수작업으로 상차"
+    },
+    {
+      "id": 3,
+      "content": "기사님이 단독 \n수작업으로 상차"
+    }
+  ],
+  "UnLoadTypeData": [
+    {
+      "id": 0,
+      "content": "고객님이 직접 하차"
+    },
+    {
+      "id": 1,
+      "content": "지게차를 통한 하차"
+    },
+    {
+      "id": 2,
+      "content": "고객님과 기사님이 함께 \n수작업으로 하차"
+    },
+    {
+      "id": 3,
+      "content": "기사님이 단독 \n수작업으로 하차"
+    }
+  ],
+  "TruckWeightData": [
+    {
+      "id": 0,
+      "content": "1t"
+    },
+    {
+      "id": 1,
+      "content": "2t"
+    },
+    {
+      "id": 2,
+      "content": "3t"
+    },
+    {
+      "id": 3,
+      "content": "기타"
+    }
+  ],
+  "TruckTypeData": [
+    {
+      "id": 0,
+      "content": "소형"
+    },
+    {
+      "id": 1,
+      "content": "중형"
+    },
+    {
+      "id": 2,
+      "content": "대형"
+    },
+    {
+      "id": 3,
+      "content": "기타"
+    }
+  ],
+  "CarTypeData": [
+    {
+      "id": 0,
+      "content": "트럭",
+      "url": "/images/truck.png"
+    },
+    {
+      "id": 1,
+      "content": "오토바이",
+      "url": "/images/motorcycle.png"
+    },
+    {
+      "id": 2,
+      "content": "다마스",
+      "url": "/images/damas.png"
+    },
+    {
+      "id": 3,
+      "content": "라보",
+      "url": "/images/rabo.png"
+    }
+  ],"PayMethod":[
+    {
+      "id": 0,
+      "content": "현금선불"
+    },
+    {
+      "id": 1,
+      "content": "현금착불"
+    },
+    {
+      "id": 2,
+      "content": "카드결제"
+    },
+    {
+      "id": 3,
+      "content": "기업거래"
+    }
+  ]
+}

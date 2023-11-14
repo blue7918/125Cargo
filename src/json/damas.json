@@ -1,0 +1,40 @@
+{
+  "LoadData": [
+    {
+      "id": 0,
+      "content": "고객님 직접"
+    },
+    {
+      "id": 1,
+      "content": "기사님과 함께"
+    },
+    {
+      "id": 2,
+      "content": "기사님 단독"
+    }
+  ],
+  "handCart": [
+    {
+      "id": 0,
+      "content": "0~100회"
+    },
+    {
+      "id": 1,
+      "content": "100~200회"
+    },
+    {
+      "id": 2,
+      "content": "200~300회"
+    }
+  ],
+  "locationData": [
+    {
+      "id": 0,
+      "content": "문 앞"
+    },
+    {
+      "id": 1,
+      "content": "차량 앞"
+    }
+  ]
+}
