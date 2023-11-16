@@ -45,16 +45,19 @@ const DamasTab = () => {
         <div>
           <div className="car-content-title">운반수준</div>
           <SelectBox
+            className="common-select-box"
             onClick={() => setShowDamasOptions((prev) => !prev)}
             check={damasOptions !== '손수레 회전수'}
           >
             <Label>{damasOptions}</Label>
             <SelectOptions
+              className="common-select-options"
               show={showDamasOptions}
               check={damasOptions !== '손수레 회전수'}
             >
               {Data.handCart.map((item) => (
                 <Option
+                  className="common-select-option"
                   key={item.id}
                   onClick={handleDamasOption}
                   check={damasOptions !== '손수레 회전수'}
@@ -166,46 +169,13 @@ const InputColWrapper = styled.div`
 `;
 
 const SelectBox = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  width: 186px;
-  height: 51px;
-  padding-left: 15px;
-  background-color: #fff;
-  align-self: center;
   color: ${(props) => (props.check ? '#326ce7' : '#777')};
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  display: flex;
-  align-items: center;
   border: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  cursor: pointer;
   &::before {
-    content: '⌵';
-    position: absolute;
-    width: 53px;
-    height: 51px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0px;
-    right: 0px;
-    color: #fff;
     background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-    font-size: 20px;
-    font-weight: 700;
-    box-sizing: border-box;
-    padding-bottom: 10px;
   }
   @media screen and (max-width: 500px) {
-    width: 149px;
-    height: 49px;
     &::before {
-      width: 33px;
-      height: 46px;
-      background: #fff;
       color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
     }
   }
@@ -216,40 +186,13 @@ const Label = styled.label`
   text-align: center;
 `;
 const SelectOptions = styled.ul`
-  position: absolute;
-  list-style: none;
-  top: 51px;
-  left: -1px;
-  width: 186px;
-  overflow: hidden;
-  height: fit-content;
-  max-height: ${(props) => (props.show ? 'none' : '0')};
-  background-color: #fff;
+  max-height: ${(props) => (props.show ? '204px' : '0')};
   border-left: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   border-right: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  z-index: 2;
-  @media screen and (max-width: 500px) {
-    top: 48px;
-    width: 149px;
-  }
 `;
 const Option = styled.li`
-  color: #777;
-  width: 186px;
-  height: 51px;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  padding-left: 13px;
-  display: flex;
-  align-items: center;
   transition: background-color 0.2s ease-in;
   border-bottom: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  &:hover {
-    background-color: #e7efff;
-    color: #326ce7;
-  }
   @media screen and (max-width: 500px) {
     width: 149px;
   }

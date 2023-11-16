@@ -16,15 +16,47 @@
   "handCart": [
     {
       "id": 0,
-      "content": "0~100회"
+      "content": "1t"
     },
     {
       "id": 1,
-      "content": "100~200회"
+      "content": "1.4t"
     },
     {
       "id": 2,
-      "content": "200~300회"
+      "content": "2.5t"
+    },
+    {
+      "id": 3,
+      "content": "3.5t"
+    },
+    {
+      "id": 4,
+      "content": "5t"
+    },
+    {
+      "id": 5,
+      "content": "8t"
+    },
+    {
+      "id": 6,
+      "content": "11t"
+    },
+    {
+      "id": 7,
+      "content": "14t"
+    },
+    {
+      "id": 8,
+      "content": "15t"
+    },
+    {
+      "id": 9,
+      "content": "18t"
+    },
+    {
+      "id": 10,
+      "content": "25t"
     }
   ],
   "locationData": [
