@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Data from '../../json/motorcycle.json';
+import CycleSelectBox from '../../utils/motorcycleSelectBox';
 
 const MotorCycleTab = (props) => {
   const { isMobile } = props;
@@ -77,175 +78,75 @@ const MotorCycleTab = (props) => {
         <ColWrapper>
           <div className="car-content-title">박스 및 상자</div>
           <InputWrapper>
-            <SelectBox
-              onClick={() => setShowSmallBox((prev) => !prev)}
-              check={smallBox}
-            >
-              <Label>
-                소박스
-                <br />
-                <span>A4박스 크기 이하</span>
-              </Label>
-              <SelectOptions show={showSmallBox} check={smallBox}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={smallBox}
-                    onClick={() =>
-                      setSmallBox(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowMediumBox((prev) => !prev)}
-              check={mediumBox}
-            >
-              <Label>
-                중박스
-                <br />
-                <span>라면박스 크기</span>
-              </Label>
-              <SelectOptions show={showMediumBox} check={mediumBox}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={mediumBox}
-                    onClick={() =>
-                      setMediumBox(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowBigBox((prev) => !prev)}
-              check={bigBox}
-            >
-              <Label>
-                대박스
-                <br />
-                <span>사과박스 크기</span>
-              </Label>
-              <SelectOptions show={showBigBox} check={bigBox}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={bigBox}
-                    onClick={() =>
-                      setBigBox(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowGiantBox((prev) => !prev)}
-              check={giantBox}
-            >
-              <Label>특대박스</Label>
-              <SelectOptions show={showGiantBox} check={giantBox}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={giantBox}
-                    onClick={() =>
-                      setGiantBox(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
+            <CycleSelectBox
+              title1="소박스"
+              title2="A4박스 크기 이하"
+              state={smallBox}
+              setState={setSmallBox}
+              show={showSmallBox}
+              showState={setShowSmallBox}
+            />
+            <CycleSelectBox
+              title1="중박스"
+              title2="라면박스 크기"
+              state={mediumBox}
+              setState={setMediumBox}
+              show={showMediumBox}
+              showState={setShowMediumBox}
+            />
+            <CycleSelectBox
+              title1="대박스"
+              title2="사과박스 크기"
+              state={bigBox}
+              setState={setBigBox}
+              show={showBigBox}
+              showState={setShowBigBox}
+            />
+            <CycleSelectBox
+              title1="특대박스"
+              title2=""
+              state={giantBox}
+              setState={setGiantBox}
+              show={showGiantBox}
+              showState={setShowGiantBox}
+            />
           </InputWrapper>
         </ColWrapper>
         <ColWrapper>
           <div className="car-content-title">쇼핑백 및 봉투</div>
           <InputWrapper>
-            <SelectBox
-              onClick={() => setShowSmallBag((prev) => !prev)}
-              check={smallBag}
-            >
-              <Label>쇼핑백</Label>
-              <SelectOptions show={showSmallBag} check={smallBag}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={smallBag}
-                    onClick={() =>
-                      setSmallBag(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowBigBag((prev) => !prev)}
-              check={bigBag}
-            >
-              <Label>대형쇼핑백</Label>
-              <SelectOptions show={showBigBag} check={bigBag}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={bigBag}
-                    onClick={() =>
-                      setBigBag(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowSmallSack((prev) => !prev)}
-              check={smallSack}
-            >
-              <Label>소봉투</Label>
-              <SelectOptions show={showSmallSack} check={smallSack}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={smallSack}
-                    onClick={() =>
-                      setSmallSack(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
-            <SelectBox
-              onClick={() => setShowBigSack((prev) => !prev)}
-              check={bigSack}
-            >
-              <Label>대봉투</Label>
-              <SelectOptions show={showBigSack} check={bigSack}>
-                {Data.NumberData.map((item) => (
-                  <Option
-                    key={item.id}
-                    check={bigSack}
-                    onClick={() =>
-                      setBigSack(item.id === 0 ? '0개' : item.id + '개')
-                    }
-                  >
-                    {item.content}
-                  </Option>
-                ))}
-              </SelectOptions>
-            </SelectBox>
+            <CycleSelectBox
+              title1="쇼핑백"
+              title2=""
+              state={smallBag}
+              setState={setSmallBag}
+              show={showSmallBag}
+              showState={setShowSmallBag}
+            />
+            <CycleSelectBox
+              title1="대형쇼핑백"
+              title2=""
+              state={bigBag}
+              setState={setBigBag}
+              show={showBigBag}
+              showState={setShowBigBag}
+            />
+            <CycleSelectBox
+              title1="소봉투"
+              title2=""
+              state={smallSack}
+              setState={setSmallSack}
+              show={showSmallSack}
+              showState={setShowSmallSack}
+            />
+            <CycleSelectBox
+              title1="대봉투"
+              title2=""
+              state={bigSack}
+              setState={setBigSack}
+              show={showBigSack}
+              showState={setShowBigSack}
+            />
           </InputWrapper>
         </ColWrapper>
       </UpperWrapper>
@@ -466,23 +367,10 @@ const SelectOptions = styled.ul`
   }
 `;
 const Option = styled.li`
-  color: #777;
-  width: 186px;
-  height: 51px;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  padding-left: 13px;
-  display: flex;
-  align-items: center;
   transition: background-color 0.2s ease-in;
   border-bottom: 1px solid
     ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
-  &:hover {
-    background-color: #e7efff;
-    color: #326ce7;
-  }
+
   @media screen and (max-width: 500px) {
     width: 149px;
   }

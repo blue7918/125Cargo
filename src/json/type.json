@@ -42,33 +42,77 @@
     },
     {
       "id": 1,
-      "content": "2t"
+      "content": "1.4t"
     },
     {
       "id": 2,
-      "content": "3t"
+      "content": "2.5t"
     },
     {
       "id": 3,
-      "content": "기타"
+      "content": "3.5t"
+    },
+    {
+      "id": 4,
+      "content": "5t"
+    },
+    {
+      "id": 5,
+      "content": "8t"
+    },
+    {
+      "id": 6,
+      "content": "11t"
+    },
+    {
+      "id": 7,
+      "content": "14t"
+    },
+    {
+      "id": 8,
+      "content": "15t"
+    },
+    {
+      "id": 9,
+      "content": "18t"
+    },
+    {
+      "id": 10,
+      "content": "25t"
     }
   ],
   "TruckTypeData": [
     {
       "id": 0,
-      "content": "소형"
+      "content": "카고"
     },
     {
       "id": 1,
-      "content": "중형"
+      "content": "호루"
     },
     {
       "id": 2,
-      "content": "대형"
+      "content": "탑차"
     },
     {
       "id": 3,
-      "content": "기타"
+      "content": "윙바디"
+    },
+    {
+      "id": 4,
+      "content": "냉장탑차"
+    },
+    {
+      "id": 5,
+      "content": "냉장윙바디"
+    },
+    {
+      "id": 6,
+      "content": "냉동탑차"
+    },
+    {
+      "id": 7,
+      "content": "냉동윙바디"
     }
   ],
   "CarTypeData": [
@@ -92,7 +136,8 @@
       "content": "라보",
       "url": "/images/rabo.png"
     }
-  ],"PayMethod":[
+  ],
+  "PayMethod": [
     {
       "id": 0,
       "content": "현금선불"

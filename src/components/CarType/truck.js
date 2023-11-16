@@ -7,7 +7,7 @@ const TruckTab = () => {
   const [truckType, setTruckType] = useState('트럭종류');
   const [showWeightOptions, setShowWeightOptions] = useState(false);
   const [showTypeOptions, setShowTypeOptions] = useState(false);
-  const [selectAccMenu, setSelectAccMenu] = useState('없음');
+  const [selectAccMenu, setSelectAccMenu] = useState('없음'); //명세서 출력하듯이 문자로 출력해줘야한다고 생각해서 string으로 구성해두었는데 백으로 연동작업 필요하신거면 0,1,2로 바꾸면 될 것 같습니다!
   const [loadType, setLoadType] = useState('고객님이 직접 상차'); //필수선택이라 생각해 default 값을 다음과 같이 설정해두었습니다.
   const [unLoadType, setUnLoadType] = useState('고객님이 직접 하차');
 
@@ -36,16 +36,19 @@ const TruckTab = () => {
           <div className="car-content-title">트럭톤수 및 종류</div>
           <div className="input-col-wrapper">
             <SelectBox
+              className="common-select-box"
               onClick={() => setShowWeightOptions((prev) => !prev)}
               check={truckWeight !== '트럭톤수'}
             >
               <Label>{truckWeight}</Label>
               <SelectOptions
+                className="common-select-options"
                 show={showWeightOptions}
                 check={truckWeight !== '트럭톤수'}
               >
                 {TypeData.TruckWeightData.map((item) => (
                   <Option
+                    className="common-select-option"
                     key={item.id}
                     onClick={handleTruckWeight}
                     check={truckWeight !== '트럭톤수'}
@@ -55,18 +58,20 @@ const TruckTab = () => {
                 ))}
               </SelectOptions>
             </SelectBox>
-
             <SelectBox
+              className="common-select-box"
               onClick={() => setShowTypeOptions((prev) => !prev)}
               check={truckType !== '트럭종류'}
             >
               <Label>{truckType}</Label>
               <SelectOptions
+                className="common-select-options"
                 show={showTypeOptions}
                 check={truckType !== '트럭종류'}
               >
                 {TypeData.TruckTypeData.map((item) => (
                   <Option
+                    className="common-select-option"
                     key={item.id}
                     onClick={handleTruckType}
                     check={truckType !== '트럭종류'}
@@ -166,46 +171,13 @@ const Wrapper = styled.div`
   }
 `;
 const SelectBox = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  width: 186px;
-  height: 51px;
-  padding-left: 15px;
-  background-color: #fff;
-  align-self: center;
   color: ${(props) => (props.check ? '#326ce7' : '#777')};
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  display: flex;
-  align-items: center;
   border: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  cursor: pointer;
   &::before {
-    content: '⌵';
-    position: absolute;
-    width: 53px;
-    height: 51px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0px;
-    right: 0px;
-    color: #fff;
     background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-    font-size: 20px;
-    font-weight: 700;
-    box-sizing: border-box;
-    padding-bottom: 10px;
   }
   @media screen and (max-width: 500px) {
-    width: 149px;
-    height: 49px;
     &::before {
-      width: 33px;
-      height: 46px;
-      background: #fff;
       color: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
     }
   }
@@ -216,40 +188,13 @@ const Label = styled.label`
   text-align: center;
 `;
 const SelectOptions = styled.ul`
-  position: absolute;
-  list-style: none;
-  top: 51px;
-  left: -1px;
-  width: 186px;
-  overflow: hidden;
-  height: fit-content;
-  max-height: ${(props) => (props.show ? 'none' : '0')};
-  background-color: #fff;
+  max-height: ${(props) => (props.show ? '204px' : '0')};
   border-left: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   border-right: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  z-index: 2;
-  @media screen and (max-width: 500px) {
-    top: 48px;
-    width: 149px;
-  }
 `;
 const Option = styled.li`
-  color: #777;
-  width: 186px;
-  height: 51px;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  padding-left: 13px;
-  display: flex;
-  align-items: center;
   transition: background-color 0.2s ease-in;
   border-bottom: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  &:hover {
-    background-color: #e7efff;
-    color: #326ce7;
-  }
   @media screen and (max-width: 500px) {
     top: 48px;
     width: 149px;
