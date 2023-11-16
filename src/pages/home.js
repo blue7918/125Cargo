@@ -164,7 +164,7 @@ const HomePage = (props) => {
       </Wrapper>
       {isOpen === 1 ? (
         <ModalBackdrop>
-          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} />
+          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} tabValue={tabValue} />
         </ModalBackdrop>
       ) : null}
       {isOpen === 2 ? (

@@ -16,47 +16,47 @@
   "handCart": [
     {
       "id": 0,
-      "content": "1t"
+      "content": "1"
     },
     {
       "id": 1,
-      "content": "1.4t"
+      "content": "1.4"
     },
     {
       "id": 2,
-      "content": "2.5t"
+      "content": "2.5"
     },
     {
       "id": 3,
-      "content": "3.5t"
+      "content": "3.5"
     },
     {
       "id": 4,
-      "content": "5t"
+      "content": "5"
     },
     {
       "id": 5,
-      "content": "8t"
+      "content": "8"
     },
     {
       "id": 6,
-      "content": "11t"
+      "content": "11"
     },
     {
       "id": 7,
-      "content": "14t"
+      "content": "14"
     },
     {
       "id": 8,
-      "content": "15t"
+      "content": "15"
     },
     {
       "id": 9,
-      "content": "18t"
+      "content": "18"
     },
     {
       "id": 10,
-      "content": "25t"
+      "content": "25"
     }
   ],
   "locationData": [

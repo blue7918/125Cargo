@@ -13,7 +13,7 @@ const TruckTab = () => {
 
   const handleTruckWeight = (e) => {
     const { innerText } = e.target;
-    setTruckWeight(innerText);
+    setTruckWeight(innerText.slice(-1));
   };
   const handleTruckType = (e) => {
     const { innerText } = e.target;
@@ -53,7 +53,7 @@ const TruckTab = () => {
                     onClick={handleTruckWeight}
                     check={truckWeight !== '트럭톤수'}
                   >
-                    {item.content}
+                    {item.content}t
                   </Option>
                 ))}
               </SelectOptions>
