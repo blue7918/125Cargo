@@ -16,15 +16,15 @@ const TruckTab = () => {
     setTruckWeight(innerText);
   };
   const handleTruckType = (e) => {
-    const { innerText2 } = e.target;
-    setTruckType(innerText2);
+    const { innerText } = e.target;
+    setTruckType(innerText);
   };
   const handleAccompany = (e) => {
     if (e !== selectAccMenu) setSelectAccMenu(e);
     else if (e === selectAccMenu) setSelectAccMenu('없음');
   };
   return (
-    <>
+    <Wrapper>
       <div>
         <div className="car-content-title">배송품 종류 및 수량</div>
         <ContentInput
@@ -35,22 +35,42 @@ const TruckTab = () => {
         <div>
           <div className="car-content-title">트럭톤수 및 종류</div>
           <div className="input-col-wrapper">
-            <SelectBox onClick={() => setShowWeightOptions((prev) => !prev)}>
+            <SelectBox
+              onClick={() => setShowWeightOptions((prev) => !prev)}
+              check={truckWeight !== '트럭톤수'}
+            >
               <Label>{truckWeight}</Label>
-              <SelectOptions show={showWeightOptions}>
+              <SelectOptions
+                show={showWeightOptions}
+                check={truckWeight !== '트럭톤수'}
+              >
                 {TypeData.TruckWeightData.map((item) => (
-                  <Option key={item.id} onClick={handleTruckWeight}>
+                  <Option
+                    key={item.id}
+                    onClick={handleTruckWeight}
+                    check={truckWeight !== '트럭톤수'}
+                  >
                     {item.content}
                   </Option>
                 ))}
               </SelectOptions>
             </SelectBox>
 
-            <SelectBox onClick={() => setShowTypeOptions((prev) => !prev)}>
+            <SelectBox
+              onClick={() => setShowTypeOptions((prev) => !prev)}
+              check={truckType !== '트럭종류'}
+            >
               <Label>{truckType}</Label>
-              <SelectOptions show={showTypeOptions}>
+              <SelectOptions
+                show={showTypeOptions}
+                check={truckType !== '트럭종류'}
+              >
                 {TypeData.TruckTypeData.map((item) => (
-                  <Option key={item.id} onClick={handleTruckType}>
+                  <Option
+                    key={item.id}
+                    onClick={handleTruckType}
+                    check={truckType !== '트럭종류'}
+                  >
                     {item.content}
                   </Option>
                 ))}
@@ -115,12 +135,36 @@ const TruckTab = () => {
           </div>
         </InputRowWrapper>
       </LowerBox>
-    </>
+      <MobileAccompanyCheck>
+        {/* 필수선택이 아닌 것 같아 아래와 같이 구현하였습니다. */}
+        <AccompanyMenu
+          onClick={() => handleAccompany('동승 1인')}
+          selected={selectAccMenu === '동승 1인'}
+        >
+          동승 1인
+        </AccompanyMenu>
+        <AccompanyMenu
+          onClick={() => handleAccompany('동승 2인')}
+          selected={selectAccMenu === '동승 2인'}
+        >
+          동승 2인
+        </AccompanyMenu>
+      </MobileAccompanyCheck>
+    </Wrapper>
   );
 };
 
 export default TruckTab;
 
+const Wrapper = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-left: 15px;
+    margin-top: 30px;
+  }
+`;
 const SelectBox = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -129,14 +173,14 @@ const SelectBox = styled.div`
   padding-left: 15px;
   background-color: #fff;
   align-self: center;
-  color: #326ce7;
+  color: ${(props) => (props.check ? '#326ce7' : '#777')};
   font-size: 17px;
   font-weight: 400;
   line-height: 100%; /* 17px */
   letter-spacing: -0.2px;
   display: flex;
   align-items: center;
-  border: 1px solid #326ce7;
+  border: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   cursor: pointer;
   &::before {
     content: '⌵';
@@ -149,11 +193,21 @@ const SelectBox = styled.div`
     top: 0px;
     right: 0px;
     color: #fff;
-    background: #326ce7;
+    background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
     font-size: 20px;
     font-weight: 700;
     box-sizing: border-box;
     padding-bottom: 10px;
+  }
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    &::before {
+      width: 33px;
+      height: 46px;
+      background: #fff;
+      color: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
+    }
   }
 `;
 const Label = styled.label`
@@ -171,9 +225,13 @@ const SelectOptions = styled.ul`
   height: fit-content;
   max-height: ${(props) => (props.show ? 'none' : '0')};
   background-color: #fff;
-  border-left: 1px solid #326ce7;
-  border-right: 1px solid #326ce7;
+  border-left: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
+  border-right: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   z-index: 2;
+  @media screen and (max-width: 500px) {
+    top: 48px;
+    width: 149px;
+  }
 `;
 const Option = styled.li`
   color: #777;
@@ -187,10 +245,14 @@ const Option = styled.li`
   display: flex;
   align-items: center;
   transition: background-color 0.2s ease-in;
-  border-bottom: 1px solid #326ce7;
+  border-bottom: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   &:hover {
     background-color: #e7efff;
     color: #326ce7;
+  }
+  @media screen and (max-width: 500px) {
+    top: 48px;
+    width: 149px;
   }
 `;
 const MethodButton = styled.button`
@@ -208,6 +270,11 @@ const MethodButton = styled.button`
   line-height: 100%; /* 15px */
   letter-spacing: -0.2px;
   white-space: pre-wrap;
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    font-size: 14px;
+  }
 `;
 
 const LiftCheck = styled.div`
@@ -219,17 +286,39 @@ const LiftCheck = styled.div`
   line-height: 100%; /* 17px */
   letter-spacing: -0.2px;
   margin-top: 5px;
+  margin-right: 17px;
   & > input {
     width: 17px;
     height: 17px;
     border: 1px solid #c4c4c4;
     margin-left: 6px;
   }
+  @media screen and (max-width: 500px) {
+    border-bottom: 2px solid #c4c4c4;
+    padding-bottom: 26px;
+  }
 `;
 const AccompanyCheck = styled.div`
   display: flex;
   gap: 4px;
   margin-top: 24px;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+`;
+const MobileAccompanyCheck = styled.div`
+  display: none;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #c4c4c4;
+    border-bottom: 2px solid #c4c4c4;
+    margin-left: -15px;
+    padding-left: 15px;
+    gap: 12px;
+  }
 `;
 const AccompanyMenu = styled.button`
   display: flex;
@@ -244,6 +333,12 @@ const AccompanyMenu = styled.button`
   font-weight: 400;
   line-height: 100%; /* 17px */
   letter-spacing: -0.2px;
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    font-size: 14px;
+    margin-top: 0px;
+  }
 `;
 
 const ContentInput = styled.textarea`
@@ -254,25 +349,50 @@ const ContentInput = styled.textarea`
   resize: none;
   padding: 15px;
   outline: none;
+  margin-bottom: 25px;
   &::placeholder {
     color: #848484;
+  }
+  @media screen and (max-width: 500px) {
+    width: 310px;
+    height: 81px;
+    margin-bottom: 0px;
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 `;
 const LowerBox = styled.div`
   display: flex;
   gap: 36px;
+  @media screen and (max-width: 500px) {
+    height: fit-content;
+    flex-direction: column;
+  }
 `;
 const InputRowWrapper = styled.div`
   display: flex;
   gap: 15px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 const InputColWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  @media screen and (max-width: 500px) {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 const ContentLine = styled.div`
   width: 1.5px;
   height: 272px;
   background-color: #c4c4c4;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;

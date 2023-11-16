@@ -19,7 +19,7 @@ const DamasTab = () => {
     else if (e === selectAccMenu) setSelectAccMenu('없음');
   };
   return (
-    <>
+    <Wrapper>
       <div>
         <div className="car-content-title">배송품 종류 및 수량</div>
         <ContentInput
@@ -44,18 +44,28 @@ const DamasTab = () => {
         <Line />
         <div>
           <div className="car-content-title">운반수준</div>
-          <SelectBox onClick={() => setShowDamasOptions((prev) => !prev)}>
+          <SelectBox
+            onClick={() => setShowDamasOptions((prev) => !prev)}
+            check={damasOptions !== '손수레 회전수'}
+          >
             <Label>{damasOptions}</Label>
-            <SelectOptions show={showDamasOptions}>
+            <SelectOptions
+              show={showDamasOptions}
+              check={damasOptions !== '손수레 회전수'}
+            >
               {Data.handCart.map((item) => (
-                <Option key={item.id} onClick={handleDamasOption}>
+                <Option
+                  key={item.id}
+                  onClick={handleDamasOption}
+                  check={damasOptions !== '손수레 회전수'}
+                >
                   {item.content}
                 </Option>
               ))}
             </SelectOptions>
           </SelectBox>
         </div>
-      <Line />
+        <Line />
         <InnerRowWrapper>
           <div>
             <div className="car-content-title">상차 방법</div>
@@ -87,18 +97,29 @@ const DamasTab = () => {
           </div>
         </InnerRowWrapper>
       </RowWrapper>
-      <AccompanyMenu
-        onClick={() => handleAccompany('동승 1인')}
-        selected={selectAccMenu === '동승 1인'}
-      >
-        동승 1인
-      </AccompanyMenu>
-    </>
+      <AccompanyMenuWrapper>
+        <AccompanyMenu
+          onClick={() => handleAccompany('동승 1인')}
+          selected={selectAccMenu === '동승 1인'}
+        >
+          동승 1인
+        </AccompanyMenu>
+      </AccompanyMenuWrapper>
+    </Wrapper>
   );
 };
 
 export default DamasTab;
 
+const Wrapper = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-left: 15px;
+    margin-top: 30px;
+  }
+`;
 const ContentInput = styled.textarea`
   width: 617px;
   height: 96px;
@@ -107,22 +128,41 @@ const ContentInput = styled.textarea`
   resize: none;
   padding: 15px;
   outline: none;
+  margin-bottom: 25px;
   &::placeholder {
     color: #848484;
+  }
+  @media screen and (max-width: 500px) {
+    width: 310px;
+    height: 81px;
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 `;
 const RowWrapper = styled.div`
   display: flex;
   gap: 20px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 const InnerRowWrapper = styled.div`
   display: flex;
   gap: 15px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 const InputColWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  @media screen and (max-width: 500px) {
+    flex-direction: row;
+  }
 `;
 
 const SelectBox = styled.div`
@@ -133,14 +173,14 @@ const SelectBox = styled.div`
   padding-left: 15px;
   background-color: #fff;
   align-self: center;
-  color: #326ce7;
+  color: ${(props) => (props.check ? '#326ce7' : '#777')};
   font-size: 17px;
   font-weight: 400;
   line-height: 100%; /* 17px */
   letter-spacing: -0.2px;
   display: flex;
   align-items: center;
-  border: 1px solid #326ce7;
+  border: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   cursor: pointer;
   &::before {
     content: '⌵';
@@ -153,11 +193,21 @@ const SelectBox = styled.div`
     top: 0px;
     right: 0px;
     color: #fff;
-    background: #326ce7;
+    background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
     font-size: 20px;
     font-weight: 700;
     box-sizing: border-box;
     padding-bottom: 10px;
+  }
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    &::before {
+      width: 33px;
+      height: 46px;
+      background: #fff;
+      color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    }
   }
 `;
 const Label = styled.label`
@@ -175,9 +225,13 @@ const SelectOptions = styled.ul`
   height: fit-content;
   max-height: ${(props) => (props.show ? 'none' : '0')};
   background-color: #fff;
-  border-left: 1px solid #326ce7;
-  border-right: 1px solid #326ce7;
+  border-left: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
+  border-right: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   z-index: 2;
+  @media screen and (max-width: 500px) {
+    top: 48px;
+    width: 149px;
+  }
 `;
 const Option = styled.li`
   color: #777;
@@ -191,10 +245,13 @@ const Option = styled.li`
   display: flex;
   align-items: center;
   transition: background-color 0.2s ease-in;
-  border-bottom: 1px solid #326ce7;
+  border-bottom: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   &:hover {
     background-color: #e7efff;
     color: #326ce7;
+  }
+  @media screen and (max-width: 500px) {
+    width: 149px;
   }
 `;
 
@@ -218,6 +275,20 @@ const Line = styled.div`
   width: 1px;
   height: 202px;
   background-color: #c4c4c4;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+`;
+const AccompanyMenuWrapper = styled.div`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #c4c4c4;
+    border-bottom: 2px solid #c4c4c4;
+    margin-left: -15px;
+  }
 `;
 const AccompanyMenu = styled.button`
   display: flex;
@@ -230,7 +301,11 @@ const AccompanyMenu = styled.button`
   color: ${(props) => (props.selected ? '#fff' : '#777')};
   font-size: 17px;
   font-weight: 400;
-  line-height: 100%; /* 17px */
-  letter-spacing: -0.2px;
-  margin-top: -10px;
+  margin-top: 15px;
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    font-size: 14px;
+    margin-top: 0px;
+  }
 `;

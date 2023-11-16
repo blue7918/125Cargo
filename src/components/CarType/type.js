@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import TypeData from '../../json/type.json';
 import TruckTab from './truck';
 import MotorCycleTab from './motorcycle';
 import DamasTab from './damas';
-import RaboTab from './rabo';
 
-const CarType = () => {
-  const [tabValue, setTabValue] = useState('트럭');
+const CarType = (props) => {
+  const { tabValue, setTabValue } = props;
 
   return (
     <TypeBox>
@@ -27,7 +25,7 @@ const CarType = () => {
         <TruckTab />
       </CarContentBox>
       <CarContentBox check={tabValue === '오토바이'}>
-        <MotorCycleTab />
+        <MotorCycleTab isMobile={false} />
       </CarContentBox>
       <CarContentBox check={tabValue === '다마스'}>
         <DamasTab />

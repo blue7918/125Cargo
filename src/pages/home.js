@@ -8,11 +8,26 @@ import CarType from '../components/CarType/type';
 import TypeData from '../json/type.json';
 import exchange from '../assets/images/exchange.png';
 
-const HomePage = () => {
-  const [checkValue, setCheckValue] = useState('');
-  const [selectPayMethod, setSelectPayMethod] = useState('현금선불');
+const HomePage = (props) => {
+  const [clientName, setClientName] = useState('');
+  const [clientNumber, setClientNumber] = useState(''); //필수
+  const [departAdd, setDepartAdd] = useState(''); //필수
+  const [departDetailAdd, setDepartDetailAdd] = useState('');
+  const [departBrand, setDepartBrand] = useState('');
+  const [departNumber, setDepartNumber] = useState(''); //필수
+  const [departOncharge, setDepartOncharge] = useState('');
+  const [arriveAdd, setArriveAdd] = useState(''); //필수
+  const [arriveDetailAdd, setArriveDetailAdd] = useState('');
+  const [arriveBrand, setArriveBrand] = useState('');
+  const [arriveNumber, setArriveNumber] = useState(''); //필수
+  const [arriveOncharge, setArriveOncharge] = useState('');
+  const [shipMemo, setShipMemo] = useState('');
+  const [departTime, setDepartTime] = useState('');
+
+  const { tabValue, setTabValue } = props; //차량종류
+  const [shipType, setShipType] = useState(''); //배송타입
+  const [selectPayMethod, setSelectPayMethod] = useState('현금선불'); //결제방식
   const [isOpen, setIsOpen] = useState(0);
-  const [confirmOrder, setConfirmOrder] = useState(false);
 
   const checkOnlyOne = (id) => {
     let checkPick = document.getElementsByName('checkWrap');
@@ -20,108 +35,163 @@ const HomePage = () => {
       el.checked = false;
     });
     id.target.checked = true;
-    setCheckValue(id.target.defaultValue);
+    setShipType(id.target.defaultValue);
   };
 
   return (
-    <Wrapper>
-      <div className="basic-wrapper">
-        <div className="upper-wrapper">
-          <div>
-            <div className="title-text">의뢰인</div>
-            <div className="input-row-wrapper">
-              <input placeholder="이름" className="short-input"></input>
-              <input placeholder="연락처*" className="short-input"></input>
-            </div>
-          </div>
-          <div className="location-box">
-            <Location title="출발지" />
-            <img src={exchange} alt="icon" className="exchange-icon"></img>
-            <Location title="목적지" />
+    <>
+      <Wrapper>
+        <div className="basic-wrapper">
+          <div className="upper-wrapper">
             <div>
-              <div className="title-text">배송메모</div>
-              <textarea className="location-memo"></textarea>
+              <div className="title-text">의뢰인</div>
+              <div className="input-row-wrapper">
+                <input
+                  placeholder="이름"
+                  className="short-input"
+                  onChange={(e) => {
+                    setClientName(e.target.value);
+                  }}
+                ></input>
+                <input
+                  placeholder="연락처*"
+                  className="short-input"
+                  onChange={(e) => {
+                    setClientNumber(e.target.value);
+                  }}
+                ></input>
+              </div>
+            </div>
+            <div className="location-box">
+              <Location
+                title="출발지"
+                setAdd={setDepartAdd}
+                setDetailAdd={setDepartDetailAdd}
+                setBrand={setDepartBrand}
+                setNumber={setDepartNumber}
+                setOncharge={setDepartOncharge}
+              />
+              <img src={exchange} alt="icon" className="exchange-icon"></img>
+              <Location
+                title="목적지"
+                setAdd={setArriveAdd}
+                setDetailAdd={setArriveDetailAdd}
+                setBrand={setArriveBrand}
+                setNumber={setArriveNumber}
+                setOncharge={setArriveOncharge}
+              />
+              <div>
+                <div className="title-text">배송메모</div>
+                <textarea
+                  className="location-memo"
+                  onChange={(e) => {
+                    setShipMemo(e.target.value);
+                  }}
+                ></textarea>
+              </div>
+            </div>
+            <div>
+              <div className="title-text">배송타입</div>
+              <div className="type-button-wrapper">
+                <input
+                  type="checkbox"
+                  id="oneWay"
+                  name="checkWrap"
+                  value="편도"
+                  onChange={(e) => checkOnlyOne(e)}
+                  defaultChecked="true"
+                />
+                <label htmlFor="oneWay">편도</label>
+                <input
+                  type="checkbox"
+                  id="round"
+                  name="checkWrap"
+                  value="왕복"
+                  onChange={(e) => checkOnlyOne(e)}
+                />
+                <label htmlFor="round">왕복</label>
+                <input
+                  type="checkbox"
+                  id="linked"
+                  name="checkWrap"
+                  value="연계배송"
+                  onChange={(e) => checkOnlyOne(e)}
+                  disabled={true}
+                />
+                <label htmlFor="linked">연계배송</label>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="title-text">배송타입</div>
-            <div className="type-button-wrapper">
-              <input
-                type="checkbox"
-                id="oneWay"
-                name="checkWrap"
-                value="편도"
-                onChange={(e) => checkOnlyOne(e)}
-                defaultChecked="true"
-              />
-              <label htmlFor="oneWay">편도</label>
-              <input
-                type="checkbox"
-                id="round"
-                name="checkWrap"
-                value="왕복"
-                onChange={(e) => checkOnlyOne(e)}
-              />
-              <label htmlFor="round">왕복</label>
-              <input
-                type="checkbox"
-                id="linked"
-                name="checkWrap"
-                value="연계배송"
-                onChange={(e) => checkOnlyOne(e)}
-                disabled={true}
-              />
-              <label htmlFor="linked">연계배송</label>
+          <LowerWrapper>
+            <div>
+              <div className="title-text">차량종류 및 배송품</div>
+              <CarType tabValue={tabValue} setTabValue={setTabValue} />
             </div>
-          </div>
+            <LowerColWrapper>
+              <div>
+                <div className="title-text">결제방식</div>
+                <PayButtonWrapper>
+                  {TypeData.PayMethod.map((item) => (
+                    <PayButton
+                      key={item.id}
+                      onClick={() => setSelectPayMethod(item.content)}
+                      check={selectPayMethod === item.content}
+                    >
+                      {item.content}
+                    </PayButton>
+                  ))}
+                </PayButtonWrapper>
+              </div>
+              <div>
+                <div className="title-text">출발시간 지정</div>
+                <ArriveTime
+                  placeholder="ex. 2023/01/01"
+                  onChange={(e) => {
+                    setDepartTime(e.target.value);
+                  }}
+                ></ArriveTime>
+              </div>
+              <div>
+                <div className="title-text">요금확인</div>
+                <CostCheck onClick={() => setIsOpen(1)}>
+                  요금 확인하기
+                </CostCheck>
+              </div>
+              <NoticeCancel />
+            </LowerColWrapper>
+          </LowerWrapper>
         </div>
-        <LowerWrapper>
-          <div>
-            <div className="title-text">차량종류 및 배송품</div>
-            <CarType />
-          </div>
-          <LowerColWrapper>
-            <div>
-              <div className="title-text">결제방식</div>
-              <PayButtonWrapper>
-                {TypeData.PayMethod.map((item) => (
-                  <PayButton
-                    key={item.id}
-                    onClick={() => setSelectPayMethod(item.content)}
-                    check={selectPayMethod === item.content}
-                  >
-                    {item.content}
-                  </PayButton>
-                ))}
-              </PayButtonWrapper>
-            </div>
-            <div>
-              <div className="title-text">츌발시간 지정</div>
-              <ArriveTime placeholder="ex. 2023/01/01"></ArriveTime>
-            </div>
-            <div>
-              <div className="title-text">요금확인</div>
-              <CostCheck onClick={() => setIsOpen(1)}>요금 확인하기</CostCheck>
-            </div>
-            <NoticeCancel />
-          </LowerColWrapper>
-        </LowerWrapper>
-      </div>
+      </Wrapper>
       {isOpen === 1 ? (
         <ModalBackdrop>
-          <CheckModal
-            selectPayMethod={selectPayMethod}
-            setIsOpen={setIsOpen}
-            setConfirmOrder={setConfirmOrder}
-          />
+          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} />
         </ModalBackdrop>
       ) : null}
       {isOpen === 2 ? (
         <ModalBackdrop>
-          <ConfirmModal setIsOpen={setIsOpen}/>
+          <ConfirmModal
+            setIsOpen={setIsOpen}
+            clientName={clientName}
+            clientNumber={clientNumber}
+            departAdd={departAdd}
+            departDetailAdd={departDetailAdd}
+            departBrand={departBrand}
+            departNumber={departNumber}
+            departOncharge={departOncharge}
+            arriveAdd={arriveAdd}
+            arriveDetailAdd={arriveDetailAdd}
+            arriveBrand={arriveBrand}
+            arriveNumber={arriveNumber}
+            arriveOncharge={arriveOncharge}
+            shipMemo={shipMemo}
+            departTime={departTime}
+            shipType={shipType}
+            tabValue={tabValue}
+            selectPayMethod={selectPayMethod}
+          />
         </ModalBackdrop>
       ) : null}
-    </Wrapper>
+    </>
   );
 };
 
@@ -131,7 +201,7 @@ const Wrapper = styled.div`
   width: 1440px;
   height: fit-content;
   margin: 0 auto;
-`
+`;
 const LowerWrapper = styled.div`
   display: flex;
   gap: 20px;

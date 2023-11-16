@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import HomePage from './home';
 import MobilePage from './mobile';
 
 const SortPage = () => {
+  const [tabValue, setTabValue] = useState('트럭');
+
   return (
     <>
       <WebSize>
-        <HomePage />
+        <HomePage tabValue={tabValue} setTabValue={setTabValue}/>
       </WebSize>
       <MobileSize>
-        <MobilePage />
+        <MobilePage tabValue={tabValue} setTabValue={setTabValue}/>
       </MobileSize>
     </>
   );

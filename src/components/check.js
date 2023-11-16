@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const CheckModal = (props) => {
-  const { selectPayMethod, setIsOpen, setConfirmOrder } = props;
+  const { selectPayMethod, setIsOpen } = props;
   return (
     <BasicModal>
       <Title>요금확인 및 주문접수</Title>
@@ -11,10 +11,12 @@ const CheckModal = (props) => {
       <CostBox>
         <CostInnerBox>
           <div>기본요금</div>
+          {/* 금액 부분 api 연동 작업 필요 */}
           <div className="costBold">15,000</div>
         </CostInnerBox>
         <CostInnerBox>
           <div>추가요금</div>
+          {/* 금액 부분 api 연동 작업 필요 */}
           <div className="costBold">20,000</div>
         </CostInnerBox>
         <Line />
@@ -34,7 +36,6 @@ const CheckModal = (props) => {
         <button
           className="confirm"
           onClick={() => {
-            setConfirmOrder(true);
             setIsOpen(2);
           }}
         >

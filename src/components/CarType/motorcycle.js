@@ -3,7 +3,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Data from '../../json/motorcycle.json';
 
-const MotorCycleTab = () => {
+const MotorCycleTab = (props) => {
+  const { isMobile } = props;
   const [documentCheck, setDocumentCheck] = useState(false);
   const [itemCheck, setItemCheck] = useState(false);
   const [smallBox, setSmallBox] = useState('0개');
@@ -29,32 +30,49 @@ const MotorCycleTab = () => {
       <UpperWrapper>
         <ColWrapper>
           <div className="car-content-title">서류 및 간단물건</div>
-          <InputWrapper>
-            <CheckBox
-              onClick={() => setDocumentCheck(!documentCheck)}
-              check={documentCheck}
-            >
-              서류봉투
-              <div className="checked">
-                선택
-                <br />
-                해제
-              </div>
-              <div className="unChecked">선택</div>
-            </CheckBox>
-            <CheckBox
-              onClick={() => setItemCheck(!itemCheck)}
-              check={itemCheck}
-            >
-              간단물건
-              <div className="checked">
-                선택
-                <br />
-                해제
-              </div>
-              <div className="unChecked">선택</div>
-            </CheckBox>
-          </InputWrapper>
+          {isMobile ? (
+            <InputRowWrapper>
+              <CheckBoxButton
+                onClick={() => setDocumentCheck(!documentCheck)}
+                check={documentCheck}
+              >
+                서류봉투
+              </CheckBoxButton>
+              <CheckBoxButton
+                onClick={() => setItemCheck(!itemCheck)}
+                check={itemCheck}
+              >
+                간단물건
+              </CheckBoxButton>
+            </InputRowWrapper>
+          ) : (
+            <InputWrapper>
+              <CheckBox
+                onClick={() => setDocumentCheck(!documentCheck)}
+                check={documentCheck}
+              >
+                서류봉투
+                <div className="checked">
+                  선택
+                  <br />
+                  해제
+                </div>
+                <div className="unChecked">선택</div>
+              </CheckBox>
+              <CheckBox
+                onClick={() => setItemCheck(!itemCheck)}
+                check={itemCheck}
+              >
+                간단물건
+                <div className="checked">
+                  선택
+                  <br />
+                  해제
+                </div>
+                <div className="unChecked">선택</div>
+              </CheckBox>
+            </InputWrapper>
+          )}
         </ColWrapper>
         <ColWrapper>
           <div className="car-content-title">박스 및 상자</div>
@@ -265,16 +283,28 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 90px;
+  @media screen and (max-width: 500px) {
+    gap: 25px;
+    padding-left: 15px;
+  }
 `;
 const UpperWrapper = styled.div`
   display: flex;
   gap: 36px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    margin-top: 30px;
+  }
 `;
 const LowerWrapper = styled.div`
   width: 100%;
   padding-left: 11px;
   padding-right: 29px;
   height: 100%;
+  @media screen and (max-width: 500px) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 `;
 const LineBox = styled.div`
   width: 100%;
@@ -284,6 +314,15 @@ const LineBox = styled.div`
   padding-left: 4px;
   display: flex;
   gap: 40px;
+  @media screen and (max-width: 500px) {
+    padding-top: 27px;
+    padding-left: 15px;
+    flex-direction: column;
+    gap: 25px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #c4c4c4;
+    margin-left: -15px;
+  }
 `;
 const ColWrapper = styled.div`
   display: flex;
@@ -293,6 +332,14 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @media screen and (max-width: 500px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;
+const InputRowWrapper = styled.div`
+  display: flex;
+  gap: 12px;
 `;
 const CheckBox = styled.div`
   width: 186px;
@@ -330,6 +377,16 @@ const CheckBox = styled.div`
     display: ${(props) => (props.check ? 'none' : 'flex')};
   }
 `;
+const CheckBoxButton = styled.button`
+  background: ${(props) => (props.check ? '#326ce7' : '#fff')};
+  color: ${(props) => (props.check ? '#fff' : '#A1A1A1')};
+  border: ${(props) => (props.check ? '' : ' 1px solid #C4C4C4')};
+  width: 149px;
+  height: 49px;
+  font-size: 15px;
+  font-weight: 400;
+`;
+
 const SelectBox = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -365,6 +422,16 @@ const SelectBox = styled.div`
     box-sizing: border-box;
     padding-bottom: 10px;
   }
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 49px;
+    &::before {
+      width: 33px;
+      height: 46px;
+      background: #fff;
+      color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    }
+  }
 `;
 const Label = styled.label`
   font-size: 17px;
@@ -393,6 +460,10 @@ const SelectOptions = styled.ul`
   border-right: 1px solid
     ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
   z-index: 2;
+  @media screen and (max-width: 500px) {
+    top: 48px;
+    width: 149px;
+  }
 `;
 const Option = styled.li`
   color: #777;
@@ -411,6 +482,9 @@ const Option = styled.li`
   &:hover {
     background-color: #e7efff;
     color: #326ce7;
+  }
+  @media screen and (max-width: 500px) {
+    width: 149px;
   }
 `;
 const WeightCheck = styled.div`
@@ -438,4 +512,9 @@ const WeightButton = styled.button`
   font-weight: 600;
   line-height: 100%; /* 16px */
   letter-spacing: -0.2px;
+  @media screen and (max-width: 500px) {
+    font-weight: 400;
+    width: 100px;
+    height: 46px;
+  }
 `;

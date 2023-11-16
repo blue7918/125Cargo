@@ -48,6 +48,12 @@
   resize: none;
   outline: none;
 }
+@media screen and (max-width: 500px) {
+  .location-memo {
+    width: 340px;
+    height: 81px;
+  }
+}
 
 /* input박스 관련 */
 .input-row-wrapper {
@@ -58,6 +64,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+@media screen and (max-width: 500px) {
+  .input-col-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 .input-row-wrapper > input {
   font-size: 14px;
@@ -139,16 +151,6 @@
   gap: 25px;
   display: none;
 }
-#type-truck:checked ~ #truck-content-box,
-#type-motorcycle:checked ~ #motorcycle-content-box,
-#type-damas:checked ~ #damas-content-box,
-#type-rabo:checked ~ #rabo-content-box {
-  display: flex !important;
-}
-
-#truck-content-box {
-  display: flex !important;
-}
 
 .car-content-title {
   margin-bottom: 15px;
@@ -157,4 +159,11 @@
   font-weight: 700;
   line-height: 100%; /* 19px */
   letter-spacing: -0.2px;
+}
+
+/* 아코디언 */
+.header-inner {
+  display: flex;
+  gap: 18.42px;
+  align-items: center;
 }
