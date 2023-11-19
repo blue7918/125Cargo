@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import TypeData from '../../json/type.json';
 
-const TruckTab = () => {
+const TruckTab = ({ setCostWeight }) => {
   const [truckWeight, setTruckWeight] = useState('트럭톤수');
   const [truckType, setTruckType] = useState('트럭종류');
   const [showWeightOptions, setShowWeightOptions] = useState(false);
@@ -13,7 +13,8 @@ const TruckTab = () => {
 
   const handleTruckWeight = (e) => {
     const { innerText } = e.target;
-    setTruckWeight(innerText.slice(-1));
+    setTruckWeight(innerText.slice(0, -1));
+    setCostWeight(innerText.slice(0, -1));
   };
   const handleTruckType = (e) => {
     const { innerText } = e.target;
@@ -40,7 +41,9 @@ const TruckTab = () => {
               onClick={() => setShowWeightOptions((prev) => !prev)}
               check={truckWeight !== '트럭톤수'}
             >
-              <Label>{truckWeight}</Label>
+              <Label>
+                {truckWeight !== '트럭톤수' ? truckWeight + 't' : '트럭톤수'}
+              </Label>
               <SelectOptions
                 className="common-select-options"
                 show={showWeightOptions}

@@ -5,7 +5,7 @@ import MotorCycleTab from './motorcycle';
 import DamasTab from './damas';
 
 const CarType = (props) => {
-  const { tabValue, setTabValue } = props;
+  const { tabValue, setTabValue, setCostWeight } = props;
 
   return (
     <TypeBox>
@@ -22,7 +22,7 @@ const CarType = (props) => {
         ))}
       </CarButtonWrapper>
       <CarContentBox check={tabValue === '트럭'}>
-        <TruckTab />
+        <TruckTab setCostWeight={setCostWeight}/>
       </CarContentBox>
       <CarContentBox check={tabValue === '오토바이'}>
         <MotorCycleTab isMobile={false} />

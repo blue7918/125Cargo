@@ -4,9 +4,9 @@ import { CalAmount } from '../utils/calAmount';
 import { AddComma } from '../utils/addComma';
 
 const CheckModal = (props) => {
-  const { selectPayMethod, setIsOpen, tabValue } = props;
+  const { selectPayMethod, setIsOpen, tabValue, costWeight } = props;
   const [tempCost, setTempCost] = useState(20000);
-  let basicCost = CalAmount(tabValue);
+  let basicCost = CalAmount({tabValue, costWeight});
   return (
     <BasicModal>
       <Title>요금확인 및 주문접수</Title>

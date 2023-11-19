@@ -29,6 +29,8 @@ const HomePage = (props) => {
   const [selectPayMethod, setSelectPayMethod] = useState('현금선불'); //결제방식
   const [isOpen, setIsOpen] = useState(0);
 
+  const [costWeight, setCostWeight] = useState(0); //추가금을 결정하는 무게
+
   const checkOnlyOne = (id) => {
     let checkPick = document.getElementsByName('checkWrap');
     Array.prototype.forEach.call(checkPick, function (el) {
@@ -125,7 +127,7 @@ const HomePage = (props) => {
           <LowerWrapper>
             <div>
               <div className="title-text">차량종류 및 배송품</div>
-              <CarType tabValue={tabValue} setTabValue={setTabValue} />
+              <CarType tabValue={tabValue} setTabValue={setTabValue} setCostWeight={setCostWeight}/>
             </div>
             <LowerColWrapper>
               <div>
@@ -164,7 +166,7 @@ const HomePage = (props) => {
       </Wrapper>
       {isOpen === 1 ? (
         <ModalBackdrop>
-          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} tabValue={tabValue} />
+          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} tabValue={tabValue} costWeight={costWeight}/>
         </ModalBackdrop>
       ) : null}
       {isOpen === 2 ? (
