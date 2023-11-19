@@ -2,19 +2,27 @@
   "NumberData": [
     {
       "id": 0,
-      "content": "선택해제"
+      "content": 0
     },
     {
       "id": 1,
-      "content": "1개"
+      "content": 1
     },
     {
       "id": 2,
-      "content": "2개"
+      "content": 2
     },
     {
       "id": 3,
-      "content": "3개"
+      "content": 3
+    },
+    {
+      "id": 4,
+      "content": 4
+    },
+    {
+      "id": 5,
+      "content": 5
     }
   ],
   "WeightData": [

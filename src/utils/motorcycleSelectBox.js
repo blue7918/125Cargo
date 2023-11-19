@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import Data from '../json/motorcycle.json'
+import Data from '../json/motorcycle.json';
 
 const CycleSelectBox = (props) => {
   const { title1, title2, state, setState, show, showState } = props;
   return (
-    <SelectBox onClick={() => showState((prev) => !prev)} check={state} className='common-select-box'>
+    <SelectBox
+      onClick={() => showState((prev) => !prev)}
+      check={state}
+      className="common-select-box"
+    >
       <Label>
         {title1}
         <br />
@@ -20,9 +24,9 @@ const CycleSelectBox = (props) => {
             className="common-select-option"
             key={item.id}
             check={state}
-            onClick={() => setState(item.id === 0 ? '0개' : item.id + '개')}
+            onClick={() => setState(item.content === 0 ? 0 : item.content)}
           >
-            {item.content}
+            {item.content !== 0 ? item.content + '개' : '선택해제'}
           </Option>
         ))}
       </SelectOptions>
@@ -33,17 +37,16 @@ const CycleSelectBox = (props) => {
 export default CycleSelectBox;
 
 const SelectBox = styled.div`
-  color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#777')};
-  border: 1px solid
-    ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+  color: ${(props) => (props.check !== 0 ? '#326ce7' : '#777')};
+  border: 1px solid ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
   cursor: pointer;
   &::before {
     content: '⌵';
-    background: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    background: ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
   }
   @media screen and (max-width: 500px) {
     &::before {
-      color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+      color: ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
     }
   }
 `;
@@ -70,9 +73,9 @@ const SelectOptions = styled.ul`
   max-height: ${(props) => (props.show ? '204px' : '0')};
   background-color: #fff;
   border-left: 1px solid
-    ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
   border-right: 1px solid
-    ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
   z-index: 2;
   @media screen and (max-width: 500px) {
     top: 48px;
@@ -82,7 +85,7 @@ const SelectOptions = styled.ul`
 const Option = styled.li`
   transition: background-color 0.2s ease-in;
   border-bottom: 1px solid
-    ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
+    ${(props) => (props.check !== 0 ? '#326ce7' : '#C4C4C4')};
   @media screen and (max-width: 500px) {
     width: 149px;
   }

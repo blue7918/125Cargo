@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import DaumPostcode from 'react-daum-postcode';
 import CheckModal from '../components/check';
 import ConfirmModal from '../components/confirm';
 import Location from '../components/location';
@@ -39,9 +40,46 @@ const HomePage = (props) => {
     id.target.checked = true;
     setShipType(id.target.defaultValue);
   };
+  // const [visible, setVisible] = useState(false); // 우편번호 컴포넌트의 노출여부 상태
+  const [writeInfo, setWriteInfo] = useState();
+
+  // const handleComplete = (data) => {
+  //   let fullAddress = data.address;
+  //   let extraAddress = '';
+
+  //   if (data.addressType === 'R') {
+  //     if (data.bname !== '') {
+  //       extraAddress += data.bname;
+  //     }
+  //     if (data.buildingName !== '') {
+  //       extraAddress +=
+  //         extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+  //     }
+  //     fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+  //   }
+  //   setWriteInfo({ ...writeInfo, address: fullAddress });
+  //   setVisible(false);
+  // };
 
   return (
     <>
+      {/* {visible && (
+        <>
+          <button
+            // style={closeButton}
+            title="닫기"
+            onClick={() => setVisible(false)}
+          >
+            닫기
+          </button>
+          <DaumPostcode
+            // onComplete={handleComplete}
+            // style={addressStyle}
+            height={700}
+          />
+        </>
+      )} */}
+      {/* <div placeholder="주소를 검색해주세요" onClick={() => setVisible(true)} defaultValue={writeInfo.address}/> */}
       <Wrapper>
         <div className="basic-wrapper">
           <div className="upper-wrapper">
@@ -127,7 +165,11 @@ const HomePage = (props) => {
           <LowerWrapper>
             <div>
               <div className="title-text">차량종류 및 배송품</div>
-              <CarType tabValue={tabValue} setTabValue={setTabValue} setCostWeight={setCostWeight}/>
+              <CarType
+                tabValue={tabValue}
+                setTabValue={setTabValue}
+                setCostWeight={setCostWeight}
+              />
             </div>
             <LowerColWrapper>
               <div>
@@ -166,7 +208,12 @@ const HomePage = (props) => {
       </Wrapper>
       {isOpen === 1 ? (
         <ModalBackdrop>
-          <CheckModal selectPayMethod={selectPayMethod} setIsOpen={setIsOpen} tabValue={tabValue} costWeight={costWeight}/>
+          <CheckModal
+            selectPayMethod={selectPayMethod}
+            setIsOpen={setIsOpen}
+            tabValue={tabValue}
+            costWeight={costWeight}
+          />
         </ModalBackdrop>
       ) : null}
       {isOpen === 2 ? (
