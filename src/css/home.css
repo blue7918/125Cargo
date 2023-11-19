@@ -247,3 +247,32 @@
   background-color: #e7efff;
   color: #326ce7;
 }
+
+.common-modal-back {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+.postcode-addressbox {
+  width: 400px;
+  height: 440px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+}
+.postcode-close-button {
+  width: 100px;
+  height: 40px;
+  background-color: #c4c4c4;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  align-self: flex-end;
+}

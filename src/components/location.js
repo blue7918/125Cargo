@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 
 const Location = (props) => {
-  const { title, setAdd, setDetailAdd, setBrand, setNumber, setOncharge } =
-    props;
+  const {
+    title,
+    setAdd,
+    setDetailAdd,
+    setBrand,
+    setNumber,
+    setOncharge,
+    setVisible,
+    addressInfo,
+    postCodeNum,
+  } = props;
   return (
     <Wrapper>
       <div className="title-text">{title}</div>
@@ -11,9 +20,11 @@ const Location = (props) => {
           <input
             placeholder="주소검색*"
             className="long-input"
+            onClick={() => setVisible(postCodeNum)}
             onChange={(e) => {
               setAdd(e.target.value);
             }}
+            defaultValue={addressInfo ? addressInfo.address : ''}
           ></input>
         </div>
         <div className="input-row-wrapper">

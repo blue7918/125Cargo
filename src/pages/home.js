@@ -5,6 +5,7 @@ import CheckModal from '../components/check';
 import ConfirmModal from '../components/confirm';
 import Location from '../components/location';
 import NoticeCancel from '../components/notice';
+import PostCode from '../components/postcode';
 import CarType from '../components/CarType/type';
 import TypeData from '../json/type.json';
 import exchange from '../assets/images/exchange.png';
@@ -24,13 +25,14 @@ const HomePage = (props) => {
   const [arriveOncharge, setArriveOncharge] = useState('');
   const [shipMemo, setShipMemo] = useState('');
   const [departTime, setDepartTime] = useState('');
-
   const { tabValue, setTabValue } = props; //차량종류
   const [shipType, setShipType] = useState(''); //배송타입
   const [selectPayMethod, setSelectPayMethod] = useState('현금선불'); //결제방식
   const [isOpen, setIsOpen] = useState(0);
-
   const [costWeight, setCostWeight] = useState(0); //추가금을 결정하는 무게
+  const [visible, setVisible] = useState(0); // 주소검색창 노출여부
+  const [addressInfo, setAddressInfo] = useState(); //출발지 주소정보
+  const [addressInfo2, setAddressInfo2] = useState(); //도착지 주소정보
 
   const checkOnlyOne = (id) => {
     let checkPick = document.getElementsByName('checkWrap');
@@ -40,46 +42,24 @@ const HomePage = (props) => {
     id.target.checked = true;
     setShipType(id.target.defaultValue);
   };
-  // const [visible, setVisible] = useState(false); // 우편번호 컴포넌트의 노출여부 상태
-  const [writeInfo, setWriteInfo] = useState();
 
-  // const handleComplete = (data) => {
-  //   let fullAddress = data.address;
-  //   let extraAddress = '';
-
-  //   if (data.addressType === 'R') {
-  //     if (data.bname !== '') {
-  //       extraAddress += data.bname;
-  //     }
-  //     if (data.buildingName !== '') {
-  //       extraAddress +=
-  //         extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-  //     }
-  //     fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-  //   }
-  //   setWriteInfo({ ...writeInfo, address: fullAddress });
-  //   setVisible(false);
-  // };
 
   return (
     <>
-      {/* {visible && (
-        <>
-          <button
-            // style={closeButton}
-            title="닫기"
-            onClick={() => setVisible(false)}
-          >
-            닫기
-          </button>
-          <DaumPostcode
-            // onComplete={handleComplete}
-            // style={addressStyle}
-            height={700}
-          />
-        </>
-      )} */}
-      {/* <div placeholder="주소를 검색해주세요" onClick={() => setVisible(true)} defaultValue={writeInfo.address}/> */}
+      {visible === 1 && (
+        <PostCode
+          addressInfo={addressInfo}
+          setAddressInfo={setAddressInfo}
+          setVisible={setVisible}
+        />
+      )}
+      {visible === 2 && (
+        <PostCode
+          addressInfo={addressInfo2}
+          setAddressInfo={setAddressInfo2}
+          setVisible={setVisible}
+        />
+      )}
       <Wrapper>
         <div className="basic-wrapper">
           <div className="upper-wrapper">
@@ -110,6 +90,9 @@ const HomePage = (props) => {
                 setBrand={setDepartBrand}
                 setNumber={setDepartNumber}
                 setOncharge={setDepartOncharge}
+                setVisible={setVisible}
+                addressInfo={addressInfo}
+                postCodeNum={1}
               />
               <img src={exchange} alt="icon" className="exchange-icon"></img>
               <Location
@@ -119,6 +102,9 @@ const HomePage = (props) => {
                 setBrand={setArriveBrand}
                 setNumber={setArriveNumber}
                 setOncharge={setArriveOncharge}
+                setVisible={setVisible}
+                addressInfo={addressInfo2}
+                postCodeNum={2}
               />
               <div>
                 <div className="title-text">배송메모</div>
@@ -207,17 +193,17 @@ const HomePage = (props) => {
         </div>
       </Wrapper>
       {isOpen === 1 ? (
-        <ModalBackdrop>
+        <div className="common-modal-back">
           <CheckModal
             selectPayMethod={selectPayMethod}
             setIsOpen={setIsOpen}
             tabValue={tabValue}
             costWeight={costWeight}
           />
-        </ModalBackdrop>
+        </div>
       ) : null}
       {isOpen === 2 ? (
-        <ModalBackdrop>
+        <div className="common-modal-back">
           <ConfirmModal
             setIsOpen={setIsOpen}
             clientName={clientName}
@@ -238,7 +224,7 @@ const HomePage = (props) => {
             tabValue={tabValue}
             selectPayMethod={selectPayMethod}
           />
-        </ModalBackdrop>
+        </div>
       ) : null}
     </>
   );
@@ -291,15 +277,4 @@ const CostCheck = styled.button`
   font-weight: 700;
   line-height: 100%; /* 23px */
   letter-spacing: -0.2px;
-`;
-
-const ModalBackdrop = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
