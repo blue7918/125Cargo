@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import DaumPostcode from 'react-daum-postcode';
 import CheckModal from '../components/check';
 import ConfirmModal from '../components/confirm';
 import Location from '../components/location';
@@ -11,6 +10,8 @@ import TypeData from '../json/type.json';
 import exchange from '../assets/images/exchange.png';
 
 const HomePage = (props) => {
+  const { tabValue, setTabValue, truckWeight, setTruckWeight } = props; //차량종류
+
   const [clientName, setClientName] = useState('');
   const [clientNumber, setClientNumber] = useState(''); //필수
   const [departAdd, setDepartAdd] = useState(''); //필수
@@ -25,11 +26,9 @@ const HomePage = (props) => {
   const [arriveOncharge, setArriveOncharge] = useState('');
   const [shipMemo, setShipMemo] = useState('');
   const [departTime, setDepartTime] = useState('');
-  const { tabValue, setTabValue } = props; //차량종류
   const [shipType, setShipType] = useState(''); //배송타입
   const [selectPayMethod, setSelectPayMethod] = useState('현금선불'); //결제방식
   const [isOpen, setIsOpen] = useState(0);
-  const [costWeight, setCostWeight] = useState(0); //추가금을 결정하는 무게
   const [visible, setVisible] = useState(0); // 주소검색창 노출여부
   const [addressInfo, setAddressInfo] = useState(); //출발지 주소정보
   const [addressInfo2, setAddressInfo2] = useState(); //도착지 주소정보
@@ -154,7 +153,8 @@ const HomePage = (props) => {
               <CarType
                 tabValue={tabValue}
                 setTabValue={setTabValue}
-                setCostWeight={setCostWeight}
+                truckWeight={truckWeight}
+                setTruckWeight={setTruckWeight}
               />
             </div>
             <LowerColWrapper>
@@ -198,7 +198,7 @@ const HomePage = (props) => {
             selectPayMethod={selectPayMethod}
             setIsOpen={setIsOpen}
             tabValue={tabValue}
-            costWeight={costWeight}
+            truckWeight={truckWeight}
           />
         </div>
       ) : null}

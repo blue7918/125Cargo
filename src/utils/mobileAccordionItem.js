@@ -8,39 +8,23 @@ import rabo from '../assets/images/rabo_small.png';
 
 const accordionItems = [
   {
-    header: (
-      <div className="header-inner">
-        <img src={truck} alt="icon" />
-        <span>트럭</span>
-      </div>
-    ),
+    header: '트럭',
+    imgUrl: truck,
     content: <TruckTab />,
   },
   {
-    header: (
-      <div className="header-inner">
-        <img src={motor} alt="icon" />
-        <span>오토바이</span>
-      </div>
-    ),
+    header: '오토바이',
+    imgUrl: motor,
     content: <MotorCycleTab isMobile={true} />,
   },
   {
-    header: (
-      <div className="header-inner">
-        <img src={damas} alt="icon" />
-        <span>다마스</span>
-      </div>
-    ),
+    header: '다마스',
+    imgUrl: damas,
     content: <DamasTab />,
   },
   {
-    header: (
-      <div className="header-inner">
-        <img src={rabo} alt="icon" />
-        <span>라보</span>
-      </div>
-    ),
+    header: '라보',
+    imgUrl: rabo,
     content: <DamasTab />,
   },
 ];

@@ -5,14 +5,15 @@ import MobilePage from './mobile';
 
 const SortPage = () => {
   const [tabValue, setTabValue] = useState('트럭');
+  const [truckWeight, setTruckWeight] = useState('트럭톤수'); 
 
   return (
     <>
       <WebSize>
-        <HomePage tabValue={tabValue} setTabValue={setTabValue}/>
+        <HomePage tabValue={tabValue} setTabValue={setTabValue} truckWeight={truckWeight} setTruckWeight={setTruckWeight}/>
       </WebSize>
       <MobileSize>
-        <MobilePage tabValue={tabValue} setTabValue={setTabValue}/>
+        <MobilePage tabValue={tabValue} setTabValue={setTabValue} truckWeight={truckWeight} setTruckWeight={setTruckWeight}/>
       </MobileSize>
     </>
   );

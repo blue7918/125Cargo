@@ -131,7 +131,6 @@ const ContentInput = styled.textarea`
   resize: none;
   padding: 15px;
   outline: none;
-  margin-bottom: 25px;
   &::placeholder {
     color: #848484;
   }
@@ -174,16 +173,14 @@ const SelectBox = styled.div`
   &::before {
     background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   }
-  @media screen and (max-width: 500px) {
-    &::before {
-      color: ${(props) => (props.check !== '0개' ? '#326ce7' : '#C4C4C4')};
-    }
-  }
 `;
 const Label = styled.label`
   font-size: 17px;
   margin-left: 4px;
   text-align: center;
+  @media screen and (max-width: 500px) {
+    margin-left: 0px;
+  }
 `;
 const SelectOptions = styled.ul`
   max-height: ${(props) => (props.show ? '204px' : '0')};

@@ -2,8 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import TypeData from '../../json/type.json';
 
-const TruckTab = ({ setCostWeight }) => {
-  const [truckWeight, setTruckWeight] = useState('트럭톤수');
+const TruckTab = (props) => {
+  const {truckWeight, setTruckWeight } = props;
+  
   const [truckType, setTruckType] = useState('트럭종류');
   const [showWeightOptions, setShowWeightOptions] = useState(false);
   const [showTypeOptions, setShowTypeOptions] = useState(false);
@@ -14,7 +15,7 @@ const TruckTab = ({ setCostWeight }) => {
   const handleTruckWeight = (e) => {
     const { innerText } = e.target;
     setTruckWeight(innerText.slice(0, -1));
-    setCostWeight(innerText.slice(0, -1));
+
   };
   const handleTruckType = (e) => {
     const { innerText } = e.target;
@@ -24,6 +25,7 @@ const TruckTab = ({ setCostWeight }) => {
     if (e !== selectAccMenu) setSelectAccMenu(e);
     else if (e === selectAccMenu) setSelectAccMenu('없음');
   };
+
   return (
     <Wrapper>
       <div>
@@ -53,7 +55,7 @@ const TruckTab = ({ setCostWeight }) => {
                   <Option
                     className="common-select-option"
                     key={item.id}
-                    onClick={handleTruckWeight}
+                    onClick={(e) => handleTruckWeight(e)}
                     check={truckWeight !== '트럭톤수'}
                   >
                     {item.content}t
@@ -76,7 +78,7 @@ const TruckTab = ({ setCostWeight }) => {
                   <Option
                     className="common-select-option"
                     key={item.id}
-                    onClick={handleTruckType}
+                    onClick={(e) => handleTruckType(e)}
                     check={truckType !== '트럭종류'}
                   >
                     {item.content}
@@ -178,11 +180,6 @@ const SelectBox = styled.div`
   border: 1px solid ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
   &::before {
     background: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-  }
-  @media screen and (max-width: 500px) {
-    &::before {
-      color: ${(props) => (props.check ? '#326ce7' : '#C4C4C4')};
-    }
   }
 `;
 const Label = styled.label`

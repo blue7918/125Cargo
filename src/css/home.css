@@ -195,7 +195,7 @@
   justify-content: center;
   top: 0px;
   right: 0px;
-  color: #fff;
+  color: #fff !important;
   font-size: 20px;
   font-weight: 700;
   box-sizing: border-box;
@@ -208,7 +208,7 @@
   }
   .common-select-box::before {
     width: 33px;
-    height: 46px;
+    height: 47px;
     background: #fff;
   }
 }

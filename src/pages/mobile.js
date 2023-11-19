@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { handleIndexData, handleTabValue } from '../utils/mobileHook';
+import TruckTab from '../components/CarType/truck';
 import { accordionItems } from '../utils/mobileAccordionItem';
 import arrow from '../assets/images/arrow.png';
 import prevArrow from '../assets/images/prevArrow.png';
 import nextArrow from '../assets/images/nextArrow.png';
 
-
 const MobilePage = (props) => {
-  const { tabValue, setTabValue } = props;
+  const { tabValue, setTabValue, truckWeight, setTruckWeight } = props;
   const [checkValue, setCheckValue] = useState('');
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
     setOpenIndex(handleIndexData(tabValue));
   }, [tabValue]);
-  
+
   const checkOnlyOne = (id) => {
     let checkPick = document.getElementsByName('checkWrap');
     Array.prototype.forEach.call(checkPick, function (el) {
@@ -77,11 +77,14 @@ const MobilePage = (props) => {
             <AccordionItem key={index}>
               <AccordionHeader
                 onClick={() => toggleAccordion(index)}
-                isOpen={openIndex === index}
+                check={openIndex === index}
               >
-                {item.header}
+                <div className="header-inner">
+                  <img src={item.imgUrl} alt="icon" />
+                  <span>{item.header}</span>
+                </div>
                 <ArrowIcon
-                  isOpen={openIndex === index}
+                  check={openIndex === index}
                   style={{
                     transform:
                       openIndex === index ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -90,8 +93,15 @@ const MobilePage = (props) => {
                   <img src={arrow} alt="icon"></img>
                 </ArrowIcon>
               </AccordionHeader>
-              <AccordionContent isOpen={openIndex === index}>
-                {item.content}
+              <AccordionContent check={openIndex === index}>
+                {item.header === '트럭' ? (
+                  <TruckTab
+                    truckWeight={truckWeight}
+                    setTruckWeight={setTruckWeight}
+                  />
+                ) : (
+                  item.content
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}
@@ -192,13 +202,13 @@ const AccordionHeader = styled.div`
   width: 340px;
   height: 55px;
   border-bottom: 1px solid #c4c4c4;
-  background: ${(props) => (props.isOpen ? '#326ce7' : '#fff')};
+  background: ${(props) => (props.check ? '#326ce7' : '#fff')};
   margin-bottom: 5px;
   padding: 11px 0;
   padding-right: 24px;
   padding-left: 4.5px;
   cursor: pointer;
-  color: ${(props) => (props.isOpen ? '#fff' : '#141414')};
+  color: ${(props) => (props.check ? '#fff' : '#141414')};
   font-size: 17px;
   font-weight: 600;
   display: flex;
@@ -219,12 +229,12 @@ const HeaderInner = styled.div`
 const ArrowIcon = styled.div`
   transition: transform 0.5s ease;
   filter: ${(props) =>
-    props.isOpen ? '' : 'opacity(0.5) drop-shadow(0 0 0 #141414)'};
+    props.check ? '' : 'opacity(0.5) drop-shadow(0 0 0 #141414)'};
 `;
 
 const AccordionContent = styled.div`
   width: 340px;
-  max-height: ${(props) => (props.isOpen ? 'fit-content' : '0')};
+  max-height: ${(props) => (props.check ? 'fit-content' : '0')};
   overflow: hidden;
   transition: max-height 0.3s ease;
 `;
