@@ -4,7 +4,7 @@ import Data from '../json/motorcycle.json'
 const CycleSelectBox = (props) => {
   const { title1, title2, state, setState, show, showState } = props;
   return (
-    <SelectBox onClick={() => showState((prev) => !prev)} check={state}>
+    <SelectBox onClick={() => showState((prev) => !prev)} check={state} className='common-select-box'>
       <Label>
         {title1}
         <br />
