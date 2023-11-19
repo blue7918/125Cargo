@@ -62,7 +62,7 @@ const DamasTab = () => {
                   onClick={handleDamasOption}
                   check={damasOptions !== '손수레 회전수'}
                 >
-                  {item.content}t
+                  {item.content}
                 </Option>
               ))}
             </SelectOptions>
