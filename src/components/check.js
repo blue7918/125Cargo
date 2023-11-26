@@ -1,12 +1,91 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { CalAmount } from '../utils/calAmount';
 import { AddComma } from '../utils/addComma';
 
 const CheckModal = (props) => {
-  const { selectPayMethod, setIsOpen, tabValue, truckWeight } = props;
+  const {
+    setIsOpen,
+    clientName,
+    clientNumber,
+    departAdd,
+    departDetailAdd,
+    departBrand,
+    departNumber,
+    departOncharge,
+    arriveAdd,
+    arriveDetailAdd,
+    arriveBrand,
+    arriveNumber,
+    arriveOncharge,
+    shipMemo,
+    departTime,
+    shipType,
+    tabValue,
+    selectPayMethod,
+    addressInfo,
+    addressInfo2,
+    truckWeight,
+  } = props;
+
   const [tempCost, setTempCost] = useState(20000);
   let basicCost = CalAmount({ tabValue, truckWeight });
+
+  const URL = '8888/items';
+  const kmUrl = '8888/km_map';
+
+  const data = {
+    name: clientName,
+    number: clientNumber,
+    addr: addressInfo ? addressInfo : departAdd,
+    addr_detail: departDetailAdd,
+    start_brand: departBrand,
+    start_number: departNumber,
+    start_oncharge: departOncharge,
+    end_addr: addressInfo2 ? addressInfo2 : arriveAdd,
+    end_addr_detail: arriveDetailAdd,
+    end_brand: arriveBrand,
+    end_number: arriveNumber,
+    end_oncharge: arriveOncharge,
+    memo: shipMemo,
+    start_time: departTime,
+    ship_type: shipType,
+    value: tabValue,
+    pay_method: selectPayMethod,
+  };
+
+  const kmData = {
+    start_addr: addressInfo ? addressInfo : departAdd,
+    end_addr: addressInfo2 ? addressInfo2 : arriveAdd,
+  };
+
+  const handleItems = (data) => {
+    return axios.post(URL, data);
+  };
+  const handleKm = (kmData) => {
+    return axios.post(kmUrl, kmData);
+  };
+
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return axios.all([handleItems(data), handleKm(kmData)]);
+    },
+    onSuccess: () => {
+      console.log('데이터 추가가 성공적으로 이루어졌습니다.');
+    },
+    onError: (err) => {
+      console.log('에러발생: ');
+      console.log(err);
+    },
+  });
+
+  const handleSubmit = () => {
+    setIsOpen(0);
+    mutation.mutate(data, kmData);
+  };
+
   return (
     <BasicModal>
       <Title>요금확인 및 주문접수</Title>
@@ -41,7 +120,8 @@ const CheckModal = (props) => {
         <button
           className="confirm"
           onClick={() => {
-            setIsOpen(2);
+            handleSubmit();
+            setIsOpen(0);
           }}
         >
           확인

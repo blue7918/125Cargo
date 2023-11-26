@@ -131,12 +131,14 @@ const ContentInput = styled.textarea`
   resize: none;
   padding: 15px;
   outline: none;
+  margin-bottom: 25px;
   &::placeholder {
     color: #848484;
   }
   @media screen and (max-width: 500px) {
     width: 310px;
     height: 81px;
+    margin-bottom: 0px;
     &::placeholder {
       font-size: 12px;
     }
