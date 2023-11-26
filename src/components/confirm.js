@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const ConfirmModal = (props) => {
   const {
@@ -23,9 +23,13 @@ const ConfirmModal = (props) => {
     shipType,
     tabValue,
     selectPayMethod,
+    addressInfo,
+    addressInfo2
   } = props;
 
   const URL = '8888/items';
+  const kmUrl = '8888/km_map';
+
   const [allConFirm, setAllConfirm] = useState(false);
   //인증 관련 코드 추가
   // if () setAllConfirm(true);
@@ -33,12 +37,12 @@ const ConfirmModal = (props) => {
   const data = {
     name: clientName,
     number: clientNumber,
-    addr: departAdd,
+    addr: addressInfo?addressInfo:departAdd,
     addr_detail: departDetailAdd,
     start_brand: departBrand,
     start_number: departNumber,
     start_oncharge: departOncharge,
-    end_addr: arriveAdd,
+    end_addr: addressInfo2?addressInfo2:arriveAdd,
     end_addr_detail: arriveDetailAdd,
     end_brand: arriveBrand,
     end_number: arriveNumber,
@@ -50,10 +54,21 @@ const ConfirmModal = (props) => {
     pay_method: selectPayMethod,
   };
 
+  const kmData = {
+    start_addr: addressInfo?addressInfo:departAdd,
+    end_addr: addressInfo2?addressInfo2:arriveAdd,
+  };
 
+  const handleItems = (data) => {
+    return axios.post(URL, data);
+  }
+  const handleKm = (kmData) => {
+    return axios.post(kmUrl, kmData);
+  }
+  
   const mutation = useMutation({
     mutationFn: (data) => {
-      return axios.post(URL, data);
+      return axios.all([handleItems(data), handleKm(kmData)])
     },
     onSuccess: () => {
       console.log('데이터 추가가 성공적으로 이루어졌습니다.');
@@ -64,9 +79,10 @@ const ConfirmModal = (props) => {
     },
   });
 
+
   const handleSubmit = () => {
     setIsOpen(0);
-    mutation.mutate(data);
+    mutation.mutate(data, kmData);
   };
 
   return (

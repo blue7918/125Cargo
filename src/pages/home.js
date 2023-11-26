@@ -42,7 +42,6 @@ const HomePage = (props) => {
     setShipType(id.target.defaultValue);
   };
 
-
   return (
     <>
       {visible === 1 && (
@@ -223,6 +222,8 @@ const HomePage = (props) => {
             shipType={shipType}
             tabValue={tabValue}
             selectPayMethod={selectPayMethod}
+            addressInfo={addressInfo.address}
+            addressInfo2={addressInfo2.address}
           />
         </div>
       ) : null}
