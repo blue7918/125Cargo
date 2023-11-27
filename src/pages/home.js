@@ -41,6 +41,19 @@ const HomePage = (props) => {
     id.target.checked = true;
     setShipType(id.target.defaultValue);
   };
+  const checkRequired = () => {
+    if (
+      clientName &&
+      clientNumber &&
+      (addressInfo || departAdd) &&
+      (addressInfo2 || arriveAdd) &&
+      departNumber &&
+      arriveNumber &&
+      departTime
+    ) setIsOpen(1)
+      else setIsOpen(2)
+  };
+
 
   return (
     <>
@@ -182,7 +195,7 @@ const HomePage = (props) => {
               </div>
               <div>
                 <div className="title-text">요금확인</div>
-                <CostCheck onClick={() => setIsOpen(1)}>
+                <CostCheck onClick={() => checkRequired()}>
                   요금 확인하기
                 </CostCheck>
               </div>
@@ -194,16 +207,6 @@ const HomePage = (props) => {
       {isOpen === 1 ? (
         <div className="common-modal-back">
           <CheckModal
-            selectPayMethod={selectPayMethod}
-            setIsOpen={setIsOpen}
-            tabValue={tabValue}
-            truckWeight={truckWeight}
-          />
-        </div>
-      ) : null}
-      {isOpen === 2 ? (
-        <div className="common-modal-back">
-          <ConfirmModal
             setIsOpen={setIsOpen}
             clientName={clientName}
             clientNumber={clientNumber}
@@ -224,6 +227,14 @@ const HomePage = (props) => {
             selectPayMethod={selectPayMethod}
             addressInfo={addressInfo.address}
             addressInfo2={addressInfo2.address}
+            truckWeight={truckWeight}
+          />
+        </div>
+      ) : null}
+      {isOpen === 2 ? (
+        <div className="common-modal-back">
+          <ConfirmModal
+            setIsOpen={setIsOpen}
           />
         </div>
       ) : null}
