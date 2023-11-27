@@ -35,7 +35,7 @@ const CheckModal = (props) => {
         <Line />
         <CostInnerBox>
           <div className="bold">최종요금</div>
-          <div className="totalCost">{basicCost + tempCost}</div>
+          <div className="totalCost">{basicCost + additionPrice}</div>
         </CostInnerBox>
       </CostBox>
       <TextBox>
