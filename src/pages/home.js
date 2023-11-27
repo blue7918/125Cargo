@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import CheckModal from '../components/check';
 import ConfirmModal from '../components/confirm';
 import Location from '../components/location';
 import NoticeCancel from '../components/notice';
 import PostCode from '../components/postcode';
 import CarType from '../components/CarType/type';
+import { handleAddPrice } from '../utils/handleAddPrice';
 import TypeData from '../json/type.json';
 import exchange from '../assets/images/exchange.png';
 
@@ -32,6 +35,10 @@ const HomePage = (props) => {
   const [visible, setVisible] = useState(0); // 주소검색창 노출여부
   const [addressInfo, setAddressInfo] = useState(); //출발지 주소정보
   const [addressInfo2, setAddressInfo2] = useState(); //도착지 주소정보
+  const [additionPrice, setAddictionPrice] = useState(0); //추가금액
+  const [addPrice, setAddPrice] = useState(
+    handleAddPrice(tabValue, truckWeight)
+  ); //거리 추가금 계산을 위해 차종을 정수로 나타내주는 변수
 
   const checkOnlyOne = (id) => {
     let checkPick = document.getElementsByName('checkWrap');
@@ -50,10 +57,88 @@ const HomePage = (props) => {
       departNumber &&
       arriveNumber &&
       departTime
-    ) setIsOpen(1)
-      else setIsOpen(2)
+    ) {
+      setIsOpen(1);
+      handleSubmit();
+    } else setIsOpen(2);
+  };
+  const queryClient = useQueryClient();
+  const URL = '8888/items';
+  const kmUrl = '8888/km_map';
+
+  const data = {
+    name: clientName,
+    number: clientNumber,
+    addr: addressInfo ? addressInfo : departAdd,
+    addr_detail: departDetailAdd,
+    start_brand: departBrand,
+    start_number: departNumber,
+    start_oncharge: departOncharge,
+    end_addr: addressInfo2 ? addressInfo2 : arriveAdd,
+    end_addr_detail: arriveDetailAdd,
+    end_brand: arriveBrand,
+    end_number: arriveNumber,
+    end_oncharge: arriveOncharge,
+    memo: shipMemo,
+    start_time: departTime,
+    ship_type: shipType,
+    value: tabValue,
+    pay_method: selectPayMethod,
   };
 
+  const kmData = {
+    start_addr: addressInfo ? addressInfo : departAdd,
+    end_addr: addressInfo2 ? addressInfo2 : arriveAdd,
+    add_price: addPrice,
+  };
+
+  // const handleItems = (data) => {
+  //   return axios.post(URL, data);
+  // };
+  // const handleKm = (kmData) => {
+  //   return axios.post(kmUrl, kmData);
+  // };
+
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      // return axios.all([handleItems(data), handleKm(kmData)]);
+      return axios.post(URL, data);
+    },
+    onSuccess: () => {
+      // const add_price = queryClient.getQueryData([kmData, 'items_api']);
+      // queryClient.setQueryData([kmData, 'items_api'], {
+      //   ...add_price,
+      // });
+      console.log('items 데이터 추가가 성공적으로 이루어졌습니다.');
+    },
+    onError: (err) => {
+      console.log('에러발생: ');
+      console.log(err);
+    },
+  });
+  
+  const mutation_km = useMutation({
+    mutationFn: (kmData) => {
+      // const response = axios.fetch(kmUrl, kmData);
+      return axios.post(kmUrl, kmData);
+    },
+    onSuccess: (data) => {
+      const temp = data; // 원하는 변수에 저장
+      setAddictionPrice(temp)
+      console.log('add_price:', temp);
+      console.log('km 데이터 추가가 성공적으로 이루어졌습니다.');
+    },
+    onError: (err) => {
+      console.log('에러발생: ');
+      console.log(err);
+    },
+  });
+  const handleSubmit = () => {
+    setIsOpen(0);
+    // mutation.mutate(data, kmData);
+    mutation.mutate(data);
+    mutation_km.mutate(kmData)
+  };
 
   return (
     <>
@@ -208,34 +293,16 @@ const HomePage = (props) => {
         <div className="common-modal-back">
           <CheckModal
             setIsOpen={setIsOpen}
-            clientName={clientName}
-            clientNumber={clientNumber}
-            departAdd={departAdd}
-            departDetailAdd={departDetailAdd}
-            departBrand={departBrand}
-            departNumber={departNumber}
-            departOncharge={departOncharge}
-            arriveAdd={arriveAdd}
-            arriveDetailAdd={arriveDetailAdd}
-            arriveBrand={arriveBrand}
-            arriveNumber={arriveNumber}
-            arriveOncharge={arriveOncharge}
-            shipMemo={shipMemo}
-            departTime={departTime}
-            shipType={shipType}
             tabValue={tabValue}
             selectPayMethod={selectPayMethod}
-            addressInfo={addressInfo.address}
-            addressInfo2={addressInfo2.address}
             truckWeight={truckWeight}
+            additionPrice={additionPrice}
           />
         </div>
       ) : null}
       {isOpen === 2 ? (
         <div className="common-modal-back">
-          <ConfirmModal
-            setIsOpen={setIsOpen}
-          />
+          <ConfirmModal setIsOpen={setIsOpen} />
         </div>
       ) : null}
     </>
