@@ -163,7 +163,7 @@ const HomePage = (props) => {
               <div className="title-text">의뢰인</div>
               <div className="input-row-wrapper">
                 <input
-                  placeholder="이름"
+                  placeholder="이름*"
                   className="short-input"
                   onChange={(e) => {
                     setClientName(e.target.value);
