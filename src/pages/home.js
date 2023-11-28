@@ -15,26 +15,29 @@ import exchange from '../assets/images/exchange.png';
 const HomePage = (props) => {
   const { tabValue, setTabValue, truckWeight, setTruckWeight } = props; //차량종류
 
-  const [clientName, setClientName] = useState('');
-  const [clientNumber, setClientNumber] = useState(''); //필수
+  const [clientName, setClientName] = useState('ㅇ');
+  const [clientNumber, setClientNumber] = useState('ㅇ'); //필수
   const [departAdd, setDepartAdd] = useState(''); //필수
-  const [departDetailAdd, setDepartDetailAdd] = useState('');
+  const [departDetailAdd, setDepartDetailAdd] = useState('ㅇ');
   const [departBrand, setDepartBrand] = useState('');
-  const [departNumber, setDepartNumber] = useState(''); //필수
+  const [departNumber, setDepartNumber] = useState('ㅇ'); //필수
   const [departOncharge, setDepartOncharge] = useState('');
   const [arriveAdd, setArriveAdd] = useState(''); //필수
-  const [arriveDetailAdd, setArriveDetailAdd] = useState('');
+  const [arriveDetailAdd, setArriveDetailAdd] = useState('ㅇ');
   const [arriveBrand, setArriveBrand] = useState('');
-  const [arriveNumber, setArriveNumber] = useState(''); //필수
+  const [arriveNumber, setArriveNumber] = useState('ㅇ'); //필수
   const [arriveOncharge, setArriveOncharge] = useState('');
   const [shipMemo, setShipMemo] = useState('');
-  const [departTime, setDepartTime] = useState('');
+  const [departTime, setDepartTime] = useState('ㅇ');
   const [shipType, setShipType] = useState(''); //배송타입
   const [selectPayMethod, setSelectPayMethod] = useState('현금선불'); //결제방식
   const [isOpen, setIsOpen] = useState(0);
   const [visible, setVisible] = useState(0); // 주소검색창 노출여부
-  const [addressInfo, setAddressInfo] = useState(); //출발지 주소정보
-  const [addressInfo2, setAddressInfo2] = useState(); //도착지 주소정보
+  const [addressInfo, setAddressInfo] =
+    useState('서울 송파구 오금로 1(신천동)'); //출발지 주소정보
+  const [addressInfo2, setAddressInfo2] = useState(
+    '서울 용산구 유엔빌리지길 1 (머리빌딩)'
+  ); //도착지 주소정보
   const [additionPrice, setAddictionPrice] = useState(0); //추가금액
   const [addPrice, setAddPrice] = useState(
     handleAddPrice(tabValue, truckWeight)
@@ -62,9 +65,11 @@ const HomePage = (props) => {
       handleSubmit();
     } else setIsOpen(2);
   };
-  const queryClient = useQueryClient();
-  const URL = '8888/items';
-  const kmUrl = '8888/km_map';
+  // const queryClient = useQueryClient();
+  // const URL = '/items';
+  const URL = 'http://15.164.164.189:8888/items';
+  const KmURL = 'http://15.164.164.189:8888/km_map';
+  axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
   const data = {
     name: clientName,
@@ -89,7 +94,7 @@ const HomePage = (props) => {
   const kmData = {
     start_addr: addressInfo ? addressInfo : departAdd,
     end_addr: addressInfo2 ? addressInfo2 : arriveAdd,
-    add_price: addPrice,
+    status: addPrice,
   };
 
   // const handleItems = (data) => {
@@ -105,31 +110,26 @@ const HomePage = (props) => {
       return axios.post(URL, data);
     },
     onSuccess: () => {
-      // const add_price = queryClient.getQueryData([kmData, 'items_api']);
-      // queryClient.setQueryData([kmData, 'items_api'], {
-      //   ...add_price,
-      // });
       console.log('items 데이터 추가가 성공적으로 이루어졌습니다.');
     },
     onError: (err) => {
-      console.log('에러발생: ');
+      console.log('items 에러발생: ');
       console.log(err);
     },
   });
-  
+
   const mutation_km = useMutation({
     mutationFn: (kmData) => {
-      // const response = axios.fetch(kmUrl, kmData);
-      return axios.post(kmUrl, kmData);
+      return axios.post(KmURL, kmData);
     },
     onSuccess: (data) => {
       const temp = data; // 원하는 변수에 저장
-      setAddictionPrice(temp)
+      setAddictionPrice(temp);
       console.log('add_price:', temp);
       console.log('km 데이터 추가가 성공적으로 이루어졌습니다.');
     },
     onError: (err) => {
-      console.log('에러발생: ');
+      console.log('km 에러발생: ');
       console.log(err);
     },
   });
@@ -137,7 +137,7 @@ const HomePage = (props) => {
     setIsOpen(0);
     // mutation.mutate(data, kmData);
     mutation.mutate(data);
-    mutation_km.mutate(kmData)
+    mutation_km.mutate(kmData);
   };
 
   return (

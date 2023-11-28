@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { CalAmount } from '../utils/calAmount';
 import { AddComma } from '../utils/addComma';
 
