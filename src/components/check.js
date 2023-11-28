@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { CalAmount } from '../utils/calAmount';
+import { useEffect } from 'react';
+
 import { AddComma } from '../utils/addComma';
 
 const CheckModal = (props) => {
   const {
     setIsOpen,
-    tabValue,
     selectPayMethod,
-    truckWeight,
-    additionPrice
+    basicPrice,
+    additionPrice,
+    totalBill
   } = props;
 
-  // const [tempCost, setTempCost] = useState(20000);
-  let basicCost = CalAmount({ tabValue, truckWeight });
   
   return (
     <BasicModal>
@@ -24,7 +23,7 @@ const CheckModal = (props) => {
         <CostInnerBox>
           <div>기본요금</div>
           {/* 금액 부분 api 연동 작업 필요 */}
-          <div className="costBold">{AddComma(basicCost)}</div>
+          <div className="costBold">{AddComma(basicPrice)}</div>
         </CostInnerBox>
         <CostInnerBox>
           <div>추가요금</div>
@@ -34,7 +33,7 @@ const CheckModal = (props) => {
         <Line />
         <CostInnerBox>
           <div className="bold">최종요금</div>
-          <div className="totalCost">{basicCost + additionPrice}</div>
+          <div className="totalCost">{AddComma(totalBill)}</div>
         </CostInnerBox>
       </CostBox>
       <TextBox>
